@@ -1,7 +1,6 @@
 package com.courtney.finalnumber
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
@@ -14,7 +13,6 @@ import org.jetbrains.anko.info
 class MainActivity : AppCompatActivity(), AnkoLogger {
 
     val secretNumber = SecretNumber()
-    private val TAG = MainActivity::class.java.simpleName
     var min = 1
     var max = 100
 
@@ -25,18 +23,18 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
         fab.setOnClickListener { view ->
             AlertDialog.Builder(this)
-                .setTitle("Restart")
-                .setMessage("Restart?")
-                .setPositiveButton("OK") { dialog, which ->
+                .setTitle(getString(R.string.restart))
+                .setMessage(getString(R.string.are_you_sure_to_restart))
+                .setPositiveButton(getString(R.string.ok)) { dialog, which ->
                     min = 1
                     max = 100
                     secretNumber.restart()
                     txt_count.text = secretNumber.count.toString()
                     txt_secret.text = secretNumber.secret.toString()
                     edt_secret.setText("")
-                    Log.d(TAG, "secret: ${secretNumber.secret}")
+                    info { "secret: ${secretNumber.secret}" }
                 }
-                .setNeutralButton("Cancel", null)
+                .setNeutralButton(getString(R.string.cancel), null)
                 .show()
         }
 
@@ -54,17 +52,17 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
     private fun check(n: Int) {
 
         val diff = secretNumber.validate(n)
-        var message = "Bingo! The number is ${secretNumber.secret}"
+        var message = getString(R.string.bingo_the_number_is) + "\t" + secretNumber.secret
 
         if (n in min until max) {
             when {
                 diff > 0 -> {
-                    message = "Smaller! $min ~ $n"
+                    message = getString(R.string.smaller) + min + "\t" + getString(R.string.to) + "\t" + n
                     max = n
                 }
 
                 diff < 0 -> {
-                    message = "Bigger! $n ~ $max"
+                    message = getString(R.string.bigger) + n + "\t" + getString(R.string.to) + "\t" + max
                     min = n
                 }
             }
@@ -72,13 +70,14 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             txt_count.text = secretNumber.count.toString()
 
         } else {
-            message = "You enter a wrong number! Please enter number in range $min ~ $max"
+            message = getString(R.string.you_enter_a_wrong_number_Please_enter_number_in_range) + "\t" +
+                    min +  "\t" + getString(R.string.to) + "\t" + max
         }
 
         AlertDialog.Builder(this)
-            .setTitle("Message")
+            .setTitle(getString(R.string.message))
             .setMessage(message)
-            .setPositiveButton("OK", null)
+            .setPositiveButton(getString(R.string.ok), null)
             .show()
 
         edt_secret.setText("")

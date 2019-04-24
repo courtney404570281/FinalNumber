@@ -66,7 +66,14 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             when {
                 diff == 0 && secretNumber.count < 3 -> {
                     message = "${getString(R.string.excellent_the_number_is)} ${secretNumber.secret}"
-                    replay()
+
+                    AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.message))
+                        .setMessage(message)
+                        .setPositiveButton(getString(R.string.ok)) { dialog, which ->
+                            replay()
+                        }
+                        .show()
                 }
                 diff > 0 -> {
                     message = "${getString(R.string.smaller)}  $min ${getString(R.string.to)} $n"
@@ -81,7 +88,14 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
                 }
                 else -> {
                     message = "${getString(R.string.bingo_the_number_is)} ${secretNumber.secret}"
-                    replay()
+
+                    AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.message))
+                        .setMessage(message)
+                        .setPositiveButton(getString(R.string.ok)) { dialog, which ->
+                            replay()
+                        }
+                        .show()
                 }
             }
 
@@ -89,7 +103,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             txt_count.text = secretNumber.count.toString()
 
         } else {
-            message = "${getString(R.string.you_enter_a_wrong_number_Please_enter_number_in_range)} $min ${getString(R.string.to)} $max"
+            message =
+                "${getString(R.string.you_enter_a_wrong_number_Please_enter_number_in_range)} $min ${getString(R.string.to)} $max"
         }
 
         toast(message)

@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">終極密碼</string>
     <string name="action_settings">設定</string>
-    <string name="are_you_sure_to_restart">重玩？</string>
+    <string name="are_you_sure_to_restart">你確定要重玩？</string>
     <string name="bigger">大一點！</string>
     <string name="bingo_the_number_is">答對了！秘密數字是</string>
     <string name="cancel">取消</string>
@@ -17,4 +17,5 @@
     <string name="count">次數：</string>
     <string name="_1_to_100">1 至 100</string>
     <string name="excellent_the_number_is">太讚了！秘密數字是</string>
+    <string name="the_number_is_too_large">這數字太大拉！</string>
 </resources>

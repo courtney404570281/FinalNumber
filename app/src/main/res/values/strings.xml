@@ -13,9 +13,10 @@
     <string name="you_enter_a_wrong_number_Please_enter_number_in_range">You enter a wrong number! Please enter number
         in range
     </string>
-    <string name="please_enter_a_number">Please enter a number</string>
+    <string name="please_enter_a_number">Please enter a right number</string>
     <string name="guess">Guess</string>
     <string name="count">Count:</string>
     <string name="_1_to_100">1 to 100</string>
     <string name="excellent_the_number_is">Excellent! The number is</string>
+    <string name="the_number_is_too_large">The number is too large!</string>
 </resources>

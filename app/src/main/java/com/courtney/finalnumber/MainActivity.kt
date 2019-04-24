@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.info
 import org.jetbrains.anko.toast
 
@@ -22,20 +23,22 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        // 重玩
         fab.setOnClickListener {
-            // 重玩
             AlertDialog.Builder(this)
                 .setTitle(getString(R.string.restart))
                 .setMessage(getString(R.string.are_you_sure_to_restart))
-                .setPositiveButton(getString(R.string.ok)) { dialog, which ->
+                .setPositiveButton(getString(R.string.ok)) { _, _ ->
                     replay()
                 }
                 .show()
         }
 
+        // 設定秘密數字在畫面上
         txt_secret.text = secretNumber.secret.toString()
         info { "secret: ${secretNumber.secret}" }
 
+        // 猜數字
         btn_guess.setOnClickListener {
             val n = edt_secret.text.toString().toInt()
             info { "n: $n" }
@@ -62,40 +65,38 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
         txt_count.text = secretNumber.count.toString()
 
-        if (n in min until max) {
+        if (n in min until max + 1) {
             when {
+                // 三次內猜對
                 diff == 0 && secretNumber.count < 3 -> {
                     message = "${getString(R.string.excellent_the_number_is)} ${secretNumber.secret}"
 
-                    AlertDialog.Builder(this)
-                        .setTitle(getString(R.string.message))
-                        .setMessage(message)
-                        .setPositiveButton(getString(R.string.ok)) { dialog, which ->
-                            replay()
-                        }
-                        .show()
+                    alert(message, getString(R.string.message)) {
+                        positiveButton(getString(R.string.ok)) { replay() }
+                    }.show()
+
                 }
+                // 猜的數字大於秘密數字
                 diff > 0 -> {
                     message = "${getString(R.string.smaller)}  $min ${getString(R.string.to)} $n"
                     hint = "$min ${getString(R.string.to)} $n"
                     max = n
+                    toast(message)
                 }
-
+                // 猜的數字小於秘密數字
                 diff < 0 -> {
                     message = getString(R.string.bigger) + n + "\t" + getString(R.string.to) + "\t" + max
                     hint = "$n  ${getString(R.string.to)} $max"
                     min = n
+                    toast(message)
                 }
+                // 超過三次猜對
                 else -> {
                     message = "${getString(R.string.bingo_the_number_is)} ${secretNumber.secret}"
 
-                    AlertDialog.Builder(this)
-                        .setTitle(getString(R.string.message))
-                        .setMessage(message)
-                        .setPositiveButton(getString(R.string.ok)) { dialog, which ->
-                            replay()
-                        }
-                        .show()
+                    alert(message, getString(R.string.message)) {
+                        positiveButton(getString(R.string.ok)) { replay() }
+                    }.show()
                 }
             }
 
@@ -105,15 +106,8 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         } else {
             message =
                 "${getString(R.string.you_enter_a_wrong_number_Please_enter_number_in_range)} $min ${getString(R.string.to)} $max"
+            toast(message)
         }
-
-        toast(message)
-
-        /*AlertDialog.Builder(this)
-            .setTitle(getString(R.string.message))
-            .setMessage(message)
-            .setPositiveButton(getString(R.string.ok), null)
-            .show()*/
 
         edt_secret.setText("")
     }

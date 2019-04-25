@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         secretNumber.restart()
         txt_count.text = secretNumber.count.toString()
         txt_secret.text = secretNumber.secret.toString()
+        // 清空填數字欄位
         edt_secret.setText("")
         info { "secret: ${secretNumber.secret}" }
     }
@@ -61,7 +62,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
 
         val diff = secretNumber.validate(n)
         var message: String
-        var hint = "1~100"
+        var hint = "1  ${getString(R.string.to)} 100"
 
         txt_count.text = secretNumber.count.toString()
 
@@ -104,11 +105,13 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             txt_count.text = secretNumber.count.toString()
 
         } else {
+
             message =
                 "${getString(R.string.you_enter_a_wrong_number_Please_enter_number_in_range)} $min ${getString(R.string.to)} $max"
             toast(message)
         }
 
+        // 清空填數字欄位
         edt_secret.setText("")
     }
 

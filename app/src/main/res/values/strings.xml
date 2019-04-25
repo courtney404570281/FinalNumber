@@ -19,4 +19,8 @@
     <string name="_1_to_100">1 to 100</string>
     <string name="excellent_the_number_is">Excellent! The number is</string>
     <string name="the_number_is_too_large">The number is too large!</string>
+
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

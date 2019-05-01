@@ -32,7 +32,15 @@ class SecretNumber(val context: Context) {
                 message = when {
                     value > secret -> context.getString(R.string.smaller, min.toString(), number.toString())
                     value < secret -> context.getString(R.string.bigger, number.toString(), max.toString())
-                    value == secret && count < 3 -> "${context.getString(R.string.excellent_the_number_is, secret.toString())}, count: $count"
+                    value == secret && count < 3 -> {
+                        if (best == -1 || count < best) {
+                            context.getSharedPreferences("guess", MODE_PRIVATE)
+                                .edit()
+                                .putInt("BEST", count)
+                                .apply()
+                        }
+                        "${context.getString(R.string.excellent_the_number_is, secret.toString())}, count: $count"
+                    }
                     else -> {
                         if (best == -1 || count < best) {
                             context.getSharedPreferences("guess", MODE_PRIVATE)

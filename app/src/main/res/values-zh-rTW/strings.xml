@@ -3,19 +3,21 @@
     <string name="app_name">終極密碼</string>
     <string name="action_settings">設定</string>
     <string name="are_you_sure_to_restart">你確定要重玩？</string>
-    <string name="bigger">大一點！</string>
-    <string name="bingo_the_number_is">答對了！秘密數字是</string>
+    <string name="bigger">大一點! %1$s 至 %2$s</string>
+    <string name="bingo_the_number_is">答對了！秘密數字是 %1$s</string>
     <string name="cancel">取消</string>
     <string name="message">結果</string>
     <string name="ok">我知道了！</string>
     <string name="restart">重玩</string>
-    <string name="smaller">小一點！</string>
+    <string name="smaller">小一點！ %1$s 至 %2$s</string>
     <string name="to">至</string>
     <string name="you_enter_a_wrong_number_Please_enter_number_in_range">你輸入錯了！請輸入對的範圍</string>
     <string name="please_enter_a_number">請輸入數字</string>
     <string name="guess">猜</string>
     <string name="count">次數：</string>
     <string name="_1_to_100">1 至 100</string>
-    <string name="excellent_the_number_is">太讚了！秘密數字是</string>
+    <string name="excellent_the_number_is">太讚了！秘密數字是 %1$s</string>
     <string name="the_number_is_too_large">這數字太大拉！</string>
+    <string name="hint">1 至 100</string>
+    <string name="title_activity_splash">SplashActivity</string>
 </resources>

@@ -70,7 +70,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toEndOf="@+id/txt_count_title"
             app:layout_constraintBaseline_toBaselineOf="@+id/txt_count_title"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="16dp"/>
     <TextView
             android:text="@string/_1_to_100"
             android:layout_width="wrap_content"
@@ -81,5 +81,22 @@
             android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/txt_please_enter_a_number"
             app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Show BaseLine -->
+    <TextView
+            android:text="Best Hit:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_best_record_title" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp" app:layout_constraintTop_toBottomOf="@+id/btn_guess"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+    <TextView
+            android:text="No Record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_best_record" app:layout_constraintStart_toEndOf="@+id/txt_best_record_title"
+            android:layout_marginStart="8dp" app:layout_constraintBaseline_toBaselineOf="@+id/txt_best_record_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

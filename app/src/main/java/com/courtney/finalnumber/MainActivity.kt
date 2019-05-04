@@ -1,5 +1,7 @@
 package com.courtney.finalnumber
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -13,8 +15,12 @@ import org.jetbrains.anko.alert
 class MainActivity : AppCompatActivity(), AnkoLogger {
 
     var secretNumber = SecretNumber(this)
+    companion object {
+        val REQUEST_USERINFO: Int = 100
+    }
 
     //TODO: 更改 hint
+    //TODO: 判斷邊界
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -43,23 +49,40 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             // 更新範圍
             updateRange()
 
-            if(secretNumber.isMatch()) {
-                alert {
-                    title = getString(R.string.guess)
-                    message = getString(R.string.bingo_the_number_is,
-                        secretNumber.secret.toString(),
-                        secretNumber.counter.toString())
-                    positiveButton(R.string.restart) {
-                        replay()
-                    }
-                    negativeButton(R.string.cancel) {
-
-                    }
-                }.show()
-                txt_best_record.text = secretNumber.bestDisplay
-            }
+            isMatch()
 
             edt_secret.text = null
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_USERINFO) {
+            if (resultCode == Activity.RESULT_OK) {
+
+            }
+        }
+    }
+
+    private fun isMatch() {
+        if (secretNumber.isMatch()) {
+
+            alert {
+                title = getString(R.string.guess)
+                message = getString(
+                    R.string.bingo_the_number_is,
+                    secretNumber.secret.toString(),
+                    secretNumber.counter.toString()
+                )
+                positiveButton(R.string.restart) { replay() }
+                negativeButton(R.string.cancel) {}
+            }.show()
+            txt_best_record.text = secretNumber.bestDisplay
+            // 暫時註解
+            // 移轉至 UserInfoActivity
+            val intent = Intent(this, UserInfoActivity::class.java)
+            intent.putExtra("BEST", secretNumber.counter)
+            startActivityForResult(intent, REQUEST_USERINFO)
         }
     }
 

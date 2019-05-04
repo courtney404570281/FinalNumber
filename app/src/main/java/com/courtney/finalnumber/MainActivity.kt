@@ -4,76 +4,122 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.alert
-import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity(), AnkoLogger {
 
     var secretNumber = SecretNumber(this)
 
+    //TODO: 更改 hint
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener {
-            replay()
+            alert {
+                title = getString(R.string.restart)
+                message = getString(R.string.are_you_sure_to_restart)
+                positiveButton(R.string.restart) {
+                    replay()
+                }
+                negativeButton(R.string.cancel) {
+
+                }
+            }.show()
         }
 
         txt_secret.text = secretNumber.secret.toString()
         txt_best_record.text = secretNumber.bestDisplay
+
         btn_guess.setOnClickListener {
             secretNumber.number = edt_secret.text.toString().toInt()
-            if (secretNumber.number in secretNumber.min until secretNumber.max + 1) {
-                if (secretNumber.different(secretNumber.number) == 0) {
-                    alert {
-                        title = getString(R.string.guess)
-                        message = secretNumber.message
-                        positiveButton(getString(R.string.ok)) {
-                            replay()
-                        }
-                    }.show()
-                } else {
-                    edt_secret.text = null
-                    txt_count.text = secretNumber.count.toString()
-                    txt_hint.text = secretNumber.hint
-                    toast(secretNumber.message)
-                }
-            } else {
+            txt_secret.text = secretNumber.secret.toString()
+            txt_count.text = secretNumber.counter.toString()
+            // 更新範圍
+            updateRange()
+
+            if(secretNumber.isMatch()) {
                 alert {
                     title = getString(R.string.guess)
-                    txt_count.text = secretNumber.count.toString()
-                    edt_secret.text = null
-                    message = secretNumber.message
-                    positiveButton(getString(R.string.ok)) {}
+                    message = getString(R.string.bingo_the_number_is,
+                        secretNumber.secret.toString(),
+                        secretNumber.counter.toString())
+                    positiveButton(R.string.restart) {
+                        replay()
+                    }
+                    negativeButton(R.string.cancel) {
+
+                    }
                 }.show()
+                txt_best_record.text = secretNumber.bestDisplay
             }
+
+            edt_secret.text = null
         }
     }
 
+    // 更新範圍
+    private fun updateRange() {
+        txt_min.text = secretNumber.min.toString()
+        txt_max.text = secretNumber.max.toString()
+    }
+
+    // 重玩
     private fun replay() {
         secretNumber.restart()
+        updateRange()
         txt_secret.text = secretNumber.secret.toString()
-        txt_count.text = secretNumber.count.toString()
+        txt_count.text = secretNumber.counter.toString()
         edt_secret.text = null
+        Snackbar.make(main , getString(R.string.the_game_has_restart), Snackbar.LENGTH_LONG)
+            .show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
     }
 }
+
+
+/*
+btn_guess.setOnClickListener {
+    secretNumber.number = edt_secret.text.toString().toInt()
+    if (secretNumber.number in secretNumber.min until secretNumber.max + 1) {
+        if (secretNumber.different(secretNumber.number) == 0) {
+            alert {
+                title = getString(R.string.guess)
+                message = secretNumber.message
+                positiveButton(getString(R.string.ok)) {
+                    replay()
+                }
+            }.show()
+        } else {
+            txt_hint.text = secretNumber.hint
+            txt_count.text = secretNumber.counter.toString()
+            // 清空欄位
+            edt_secret.text = null
+        }
+    } else {
+        txt_count.text = secretNumber.counter.toString()
+        // 清空欄位
+        edt_secret.text = null
+        alert {
+            title = getString(R.string.guess)
+            message = secretNumber.message
+            positiveButton(getString(R.string.ok)) {}
+        }.show()
+    }
+}*/

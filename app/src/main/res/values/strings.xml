@@ -7,18 +7,21 @@
     <string name="message">Message</string>
     <string name="cancel">Cancel</string>
     <string name="smaller">Smaller! %1$s to %2$s</string>
-    <string name="to">to</string>
+    <string name="to">%1$s to %2$s</string>
     <string name="bigger">Bigger! %1$s to %2$s</string>
-    <string name="bingo_the_number_is">Bingo! The number is %1$s</string>
+    <string name="bingo_the_number_is">Bingo! The number is %1$s, count: %2$s</string>
     <string name="you_enter_a_wrong_number_Please_enter_number_in_range">You enter a wrong number! Please enter number
-        in range
+        in range %1$s to %2$s
     </string>
     <string name="please_enter_a_number">Please enter a right number</string>
     <string name="guess">Guess</string>
     <string name="count">Count:</string>
-    <string name="_1_to_100">1 to 100</string>
-    <string name="excellent_the_number_is">Excellent! The number is %1$s</string>
+    <string name="_1_to_100">to</string>
+    <string name="excellent_the_number_is">Excellent! The number is %1$s, count: %2$s</string>
     <string name="the_number_is_too_large">The number is too large!</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="hint">1 to 100</string>
+    <string name="no_record">No Record</string>
+    <string name="play_the_game">Are you sure that you want to play the game?</string>
+    <string name="the_game_has_restart">The game has reset</string>
 </resources>

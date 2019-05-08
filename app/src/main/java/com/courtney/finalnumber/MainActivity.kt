@@ -19,12 +19,14 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
         val REQUEST_USERINFO: Int = 100
     }
 
-    //TODO: 更改 hint
     //TODO: 判斷邊界
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        val intent = Intent(this, UserInfoActivity::class.java)
+        startActivity(intent)
 
         fab.setOnClickListener {
             alert {
@@ -48,9 +50,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             txt_count.text = secretNumber.counter.toString()
             // 更新範圍
             updateRange()
-
             isMatch()
-
             edt_secret.text = null
         }
     }
@@ -80,9 +80,9 @@ class MainActivity : AppCompatActivity(), AnkoLogger {
             txt_best_record.text = secretNumber.bestDisplay
             // 暫時註解
             // 移轉至 UserInfoActivity
-            val intent = Intent(this, UserInfoActivity::class.java)
+            /*val intent = Intent(this, UserInfoActivity::class.java)
             intent.putExtra("BEST", secretNumber.counter)
-            startActivityForResult(intent, REQUEST_USERINFO)
+            startActivityForResult(intent, REQUEST_USERINFO)*/
         }
     }
 

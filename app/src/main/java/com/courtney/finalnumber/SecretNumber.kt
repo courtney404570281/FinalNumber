@@ -55,6 +55,7 @@ class SecretNumber(private val context: Context) {
     fun isMatch(): Boolean {
         return number == secret
     }
+
 }
 
 
